@@ -33,3 +33,13 @@ jobs:
         run: |
           export VERSION=$(node -p "require('./version.json').version")
           echo $VERSION
+
+      - name: run multiline
+        run: |
+          PACKAGE_VERSION=$(cat version.json \
+          | grep version \
+          | head -1 \
+          | awk -F: '{ print $2 }' \
+          | sed 's/[",]//g')
+
+          echo $PACKAGE_VERSION
